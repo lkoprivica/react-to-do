@@ -33,13 +33,24 @@ class App extends Component {
     this.setState({ todos: todos });
   }
 
+  //Define a deleteTodo method on the App component. This method
+  // should call this.setState() and pass it a new array that
+  //doesn't have the to-do item being deleted. Consider using
+  //the .filter()
+
+  deleteTodo(item) {
+    const deltodos = this.state.todos.filter(i => i !== item);
+    this.setState({ todos: deltodos });
+
+  }
+
   render() {
     return (
       <div className="App">
         <ul>
           {this.state.todos.map((todo, index) =>
-             <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={ () => this.toggleComplete(index) } />
-          )}
+             <ToDo key={ index } description={ todo.description } isCompleted={ todo.isCompleted } toggleComplete={() => this.toggleComplete(index) } deleteTodo={() => this.deleteTodo(item)} />
+          )};
         </ul>
         <form onSubmit={ (e) => this.handleSubmit(e) }>
           <input type="text" value={ this.state.newTodoDescription } onChange={ (e) => this.handleChange(e) } />
